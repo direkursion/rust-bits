@@ -39,13 +39,26 @@ fn main() {
         }
     };
 
+    let shift_amount: u8 = match read_number("Enter shift amount (0-7): ") {
+        Some(value) => value,
+        None => {
+            println!("Invalid shift amount");
+            return;
+        }
+    };
+
+    if shift_amount >= 8 {
+        println!("Invalid shift amount");
+        return;
+    }
+
     let and_result = a & b;
     let or_result = a | b;
     let xor_result = a ^ b;
     let not_a = !a;
     let not_b = !b;
-    let left_shift = a << 1;
-    let right_shift = a >> 1;
+    let left_shift = a << shift_amount;
+    let right_shift = a >> shift_amount;
 
     println!();
 
@@ -65,6 +78,6 @@ fn main() {
 
     println!();
 
-    println!("A << 1: {:08b} ({})", left_shift, left_shift);
-    println!("A >> 1: {:08b} ({})", right_shift, right_shift);
+    println!("A << {shift_amount}: {:08b} ({})", left_shift, left_shift);
+    println!("A >> {shift_amount}: {:08b} ({})", right_shift, right_shift);
 }
