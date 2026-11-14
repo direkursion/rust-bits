@@ -12,12 +12,34 @@ fn read_number(prompt: &str) -> Option<u8> {
 
     let number: u8 = match input.trim().parse() {
         Ok(value) => value,
-        Err(_) => {
-            return None;
-        }
+        Err(_) => return None,
     };
 
     Some(number)
+}
+
+fn bitwise_and(a: u8, b: u8) -> u8 {
+    a & b
+}
+
+fn bitwise_or(a: u8, b: u8) -> u8 {
+    a | b
+}
+
+fn bitwise_xor(a: u8, b: u8) -> u8 {
+    a ^ b
+}
+
+fn bitwise_not(a: u8) -> u8 {
+    !a
+}
+
+fn shift_left(a: u8, amount: u8) -> u8 {
+    a << amount
+}
+
+fn shift_right(a: u8, amount: u8) -> u8 {
+    a >> amount
 }
 
 fn main() {
@@ -52,13 +74,13 @@ fn main() {
         return;
     }
 
-    let and_result = a & b;
-    let or_result = a | b;
-    let xor_result = a ^ b;
-    let not_a = !a;
-    let not_b = !b;
-    let left_shift = a << shift_amount;
-    let right_shift = a >> shift_amount;
+    let and_result = bitwise_and(a, b);
+    let or_result = bitwise_or(a, b);
+    let xor_result = bitwise_xor(a, b);
+    let not_a = bitwise_not(a);
+    let not_b = bitwise_not(b);
+    let left_shift = shift_left(a, shift_amount);
+    let right_shift = shift_right(a, shift_amount);
 
     println!();
 
@@ -80,4 +102,55 @@ fn main() {
 
     println!("A << {shift_amount}: {:08b} ({})", left_shift, left_shift);
     println!("A >> {shift_amount}: {:08b} ({})", right_shift, right_shift);
+}
+
+#[test]
+fn test_bitwise_and() {
+    assert_eq!(bitwise_and(12, 10), 8);
+    assert_eq!(bitwise_and(255, 0), 0);
+    assert_eq!(bitwise_and(255, 255), 255);
+}
+
+#[test]
+fn test_bitwise_or() {
+    assert_eq!(bitwise_or(12, 10), 14);
+    assert_eq!(bitwise_or(255, 0), 255);
+    assert_eq!(bitwise_or(255, 255), 255);
+    assert_eq!(bitwise_or(170, 85), 255);
+    assert_eq!(bitwise_or(0, 0), 0);
+}
+
+#[test]
+fn test_bitwise_xor() {
+    assert_eq!(bitwise_xor(12, 10), 6);
+    assert_eq!(bitwise_xor(255, 0), 255);
+    assert_eq!(bitwise_xor(255, 255), 0);
+    assert_eq!(bitwise_xor(170, 85), 255);
+    assert_eq!(bitwise_xor(0, 0), 0);
+}
+
+#[test]
+fn test_bitwise_not() {
+    assert_eq!(bitwise_not(0), 255);
+    assert_eq!(bitwise_not(12), 243);
+    assert_eq!(bitwise_not(255), 0);
+    assert_eq!(bitwise_not(170), 85);
+}
+
+#[test]
+fn test_shift_left() {
+    assert_eq!(shift_left(12, 1), 24);
+    assert_eq!(shift_left(12, 2), 48);
+    assert_eq!(shift_left(128, 1), 0);
+    assert_eq!(shift_left(255, 1), 254);
+    assert_eq!(shift_left(12, 0), 12);
+}
+
+#[test]
+fn test_shift_right() {
+    assert_eq!(shift_right(12, 1), 6);
+    assert_eq!(shift_right(12, 2), 3);
+    assert_eq!(shift_right(128, 1), 64);
+    assert_eq!(shift_right(255, 1), 127);
+    assert_eq!(shift_right(12, 0), 12);
 }
