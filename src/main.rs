@@ -13,12 +13,11 @@ fn read_number(prompt: &str) -> Option<u8> {
     let number: u8 = match input.trim().parse() {
         Ok(value) => value,
         Err(_) => {
-            println!("Error: Please enter a valid number (0-255).");
             return None;
         }
     };
 
-    return Some(number);
+    Some(number)
 }
 
 fn main() {
@@ -40,9 +39,14 @@ fn main() {
         }
     };
 
-    let result = a & b;
+    let and_result = a & b;
+    let or_result = a | b;
+    let xor_result = a ^ b;
 
     println!("A: {:08b} ({})", a, a);
     println!("B: {:08b} ({})", b, b);
-    println!("AND: {:08b} ({})", result, result);
+    println!();
+    println!("AND: {:08b} ({})", and_result, and_result);
+    println!("OR: {:08b} ({})", or_result, or_result);
+    println!("XOR: {:08b} ({})", xor_result, xor_result);
 }
