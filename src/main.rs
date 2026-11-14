@@ -42,11 +42,29 @@ fn main() {
     let and_result = a & b;
     let or_result = a | b;
     let xor_result = a ^ b;
+    let not_a = !a;
+    let not_b = !b;
+    let left_shift = a << 1;
+    let right_shift = a >> 1;
+
+    println!();
 
     println!("A: {:08b} ({})", a, a);
     println!("B: {:08b} ({})", b, b);
+
     println!();
+
     println!("AND: {:08b} ({})", and_result, and_result);
     println!("OR: {:08b} ({})", or_result, or_result);
     println!("XOR: {:08b} ({})", xor_result, xor_result);
+
+    println!();
+
+    println!("NOT A: {:08b} ({})", not_a, not_a);
+    println!("NOT B: {:08b} ({})", not_b, not_b);
+
+    println!();
+
+    println!("A << 1: {:08b} ({})", left_shift, left_shift);
+    println!("A >> 1: {:08b} ({})", right_shift, right_shift);
 }
