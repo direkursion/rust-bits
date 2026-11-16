@@ -50,6 +50,14 @@ fn set_bit(a: u8, position: u8) -> u8 {
     a | (1 << position)
 }
 
+fn clear_bit(a: u8, position: u8) -> u8 {
+    a & !(1 << position)
+}
+
+fn toggle_bit(a: u8, position: u8) -> u8 {
+    a ^ (1 << position)
+}
+
 fn main() {
     println!("=== RUST BITS ===");
 
@@ -104,6 +112,8 @@ fn main() {
     let right_shift = shift_right(a, shift_amount);
     let bit = read_bit(a, bit_position);
     let set_bit_result = set_bit(a, bit_position);
+    let clear_bit_result = clear_bit(a, bit_position);
+    let toggle_bit_result = toggle_bit(a, bit_position);
 
     println!();
 
@@ -130,6 +140,8 @@ fn main() {
 
     println!("Bit {bit_position} of {a}: {bit}");
     println!("Set bit {bit_position} of {a}: {set_bit_result}");
+    println!("Clear bit {bit_position} of {a}: {clear_bit_result}");
+    println!("Toggle bit {bit_position} of {a}: {toggle_bit_result}");
 }
 
 #[test]
