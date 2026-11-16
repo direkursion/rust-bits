@@ -42,6 +42,10 @@ fn shift_right(a: u8, amount: u8) -> u8 {
     a >> amount
 }
 
+fn read_bit(a: u8, position: u8) -> u8 {
+    (a >> position) & 1
+}
+
 fn main() {
     println!("=== RUST BITS ===");
 
@@ -74,6 +78,19 @@ fn main() {
         return;
     }
 
+    let bit_position: u8 = match read_number("Enter bit position (0-7): ") {
+        Some(value) => value,
+        None => {
+            println!("Invalid bit position");
+            return;
+        }
+    };
+
+    if bit_position >= 8 {
+        println!("Invalid bit position");
+        return;
+    }
+
     let and_result = bitwise_and(a, b);
     let or_result = bitwise_or(a, b);
     let xor_result = bitwise_xor(a, b);
@@ -81,6 +98,7 @@ fn main() {
     let not_b = bitwise_not(b);
     let left_shift = shift_left(a, shift_amount);
     let right_shift = shift_right(a, shift_amount);
+    let bit = read_bit(a, bit_position);
 
     println!();
 
@@ -102,6 +120,10 @@ fn main() {
 
     println!("A << {shift_amount}: {:08b} ({})", left_shift, left_shift);
     println!("A >> {shift_amount}: {:08b} ({})", right_shift, right_shift);
+
+    println!();
+
+    println!("Bit {bit_position} of {a}: {bit}");
 }
 
 #[test]
