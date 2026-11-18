@@ -194,3 +194,41 @@ fn test_shift_right() {
     assert_eq!(shift_right(255, 1), 127);
     assert_eq!(shift_right(12, 0), 12);
 }
+
+#[test]
+fn test_read_bit() {
+    assert_eq!(read_bit(42, 0), 0);
+    assert_eq!(read_bit(42, 1), 1);
+    assert_eq!(read_bit(42, 3), 1);
+    assert_eq!(read_bit(42, 5), 1);
+    assert_eq!(read_bit(255, 7), 1);
+    assert_eq!(read_bit(0, 3), 0);
+}
+
+#[test]
+fn test_set_bit() {
+    assert_eq!(set_bit(32, 2), 36);
+    assert_eq!(set_bit(42, 0), 43);
+    assert_eq!(set_bit(42, 1), 42);
+    assert_eq!(set_bit(0, 7), 128);
+    assert_eq!(set_bit(255, 3), 255);
+}
+
+#[test]
+fn test_clear_bit() {
+    assert_eq!(clear_bit(42, 3), 34);
+    assert_eq!(clear_bit(42, 1), 40);
+    assert_eq!(clear_bit(42, 0), 42);
+    assert_eq!(clear_bit(255, 7), 127);
+    assert_eq!(clear_bit(0, 3), 0);
+}
+
+#[test]
+fn test_toggle_bit() {
+    assert_eq!(toggle_bit(42, 2), 46);
+    assert_eq!(toggle_bit(42, 3), 34);
+    assert_eq!(toggle_bit(0, 7), 128);
+    assert_eq!(toggle_bit(255, 0), 254);
+    assert_eq!(toggle_bit(170, 0), 171);
+    assert_eq!(toggle_bit(toggle_bit(42, 2), 2), 42);
+}
