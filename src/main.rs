@@ -20,6 +20,7 @@ fn run_number_converter() {
         Some(value) => value,
         None => {
             println!("Invalid number");
+            wait_for_enter();
             return;
         }
     };
@@ -30,6 +31,8 @@ fn run_number_converter() {
     println!("{:13}{:o}", "Octal:", a);
     println!("{:13}{:X}", "Hexadecimal:", a);
     println!();
+
+    wait_for_enter();
 }
 
 fn run_bitwise_operations() {
@@ -41,6 +44,7 @@ fn run_bitwise_operations() {
         Some(value) => value,
         None => {
             println!("Invalid first number");
+            wait_for_enter();
             return;
         }
     };
@@ -49,6 +53,7 @@ fn run_bitwise_operations() {
         Some(value) => value,
         None => {
             println!("Invalid second number");
+            wait_for_enter();
             return;
         }
     };
@@ -57,12 +62,14 @@ fn run_bitwise_operations() {
         Some(value) => value,
         None => {
             println!("Invalid shift amount");
+            wait_for_enter();
             return;
         }
     };
 
     if shift_amount >= 8 {
         println!("Invalid shift amount");
+        wait_for_enter();
         return;
     }
 
@@ -93,6 +100,8 @@ fn run_bitwise_operations() {
         shift_amount, right_shift, right_shift
     );
     println!();
+
+    wait_for_enter();
 }
 
 fn run_bit_inspector() {
@@ -104,6 +113,7 @@ fn run_bit_inspector() {
         Some(value) => value,
         None => {
             println!("Invalid number");
+            wait_for_enter();
             return;
         }
     };
@@ -112,12 +122,14 @@ fn run_bit_inspector() {
         Some(value) => value,
         None => {
             println!("Invalid bit position");
+            wait_for_enter();
             return;
         }
     };
 
     if bit_position >= 8 {
         println!("Invalid bit position");
+        wait_for_enter();
         return;
     }
 
@@ -134,6 +146,8 @@ fn run_bit_inspector() {
     println!("Clear bit {}: {}", bit_position, clear_bit_result);
     println!("Toggle bit {}: {}", bit_position, toggle_bit_result);
     println!();
+
+    wait_for_enter();
 }
 
 fn read_number(prompt: &str) -> Option<u8> {
@@ -152,6 +166,24 @@ fn read_number(prompt: &str) -> Option<u8> {
     };
 
     Some(number)
+}
+
+fn wait_for_enter() {
+    let mut input = String::new();
+
+    println!();
+    print!("Press Enter to return to menu...");
+
+    io::stdout().flush().expect("Failed to flush stdout");
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+}
+
+fn clear_screen() {
+    print!("\x1B[2J\x1B[H");
+    io::stdout().flush().expect("Failed to flush stdout");
 }
 
 fn bitwise_and(a: u8, b: u8) -> u8 {
@@ -196,12 +228,14 @@ fn toggle_bit(a: u8, position: u8) -> u8 {
 
 fn main() {
     loop {
+        clear_screen();
         show_menu();
 
         let choice: u8 = match read_number("Select an option: ") {
             Some(number) => number,
             None => {
                 println!("Invalid option");
+                wait_for_enter();
                 continue;
             }
         };
@@ -214,7 +248,10 @@ fn main() {
                 println!("Goodbye!");
                 break;
             }
-            _ => println!("Invalid option"),
+            _ => {
+                println!("Invalid option");
+                wait_for_enter();
+            }
         }
     }
 }
